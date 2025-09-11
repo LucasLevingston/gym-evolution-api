@@ -1,18 +1,15 @@
 import type { FastifyInstance } from 'fastify'
-import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { authenticate } from '../middlewares/authenticate'
-import { idParamSchema } from '../schemas/common-schemas'
 import { createDietController } from '../controllers/diet/create-diet'
+import { deleteDietController } from '../controllers/diet/delete-diet'
 import { getAllDietsController } from '../controllers/diet/get-all-diets'
 import { getDietByIdController } from '../controllers/diet/get-diet-by-id'
 import { updateDietController } from '../controllers/diet/update-diet'
-import { deleteDietController } from '../controllers/diet/delete-diet'
+import { authenticate } from '../middlewares/authenticate'
+import { idParamSchema } from '../schemas/common-schemas'
 import { errorResponseSchema } from '../schemas/error-schema'
 
-export async function dietRoutes(app: FastifyInstance) {
-  const server = app.withTypeProvider<ZodTypeProvider>()
-
+export async function dietRoutes(server: FastifyInstance) {
   server.addHook('onRequest', authenticate)
 
   const createDietSchema = z.object({

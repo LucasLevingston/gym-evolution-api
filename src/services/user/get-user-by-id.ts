@@ -35,6 +35,45 @@ export async function getUserByIdService(id: string) {
           },
         },
       },
+      purchasesAsProfessional: {
+        include: {
+          buyer: {
+            select: {
+              name: true,
+              imageUrl: true,
+              oldWeights: true,
+            },
+          },
+          Plan: {
+            include: {
+              features: true,
+            },
+          },
+        },
+      },
+      purchasesAsBuyer: {
+        include: {
+          buyer: {
+            select: {
+              name: true,
+              imageUrl: true,
+              oldWeights: true,
+            },
+          },
+          professional: {
+            select: {
+              imageUrl: true,
+              name: true,
+              id: true,
+            },
+          },
+          Plan: {
+            include: {
+              features: true,
+            },
+          },
+        },
+      },
     },
   })
   let tasks: Task[]

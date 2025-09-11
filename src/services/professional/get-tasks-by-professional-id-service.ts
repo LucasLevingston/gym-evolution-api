@@ -46,6 +46,7 @@ export async function getTasksByProfessionalIdService(professionalId: string) {
         taskType = 'TRAINING'
         taskTitle = 'Create Training Plan'
         taskDescription = 'Create a training plan for the client'
+        taskStatus = 'PENDING'
 
         if (feature.trainingWeekId) {
           taskStatus = 'COMPLETED'
@@ -54,19 +55,21 @@ export async function getTasksByProfessionalIdService(professionalId: string) {
         taskType = 'DIET'
         taskTitle = 'Create Diet Plan'
         taskDescription = 'Create a diet plan for the client'
+        taskStatus = 'PENDING'
 
         if (feature.dietId) {
           taskStatus = 'COMPLETED'
         }
       } else if (feature.type === 'FEEDBACK') {
         taskType = 'FEEDBACK'
-        taskTitle = 'Provide Feedback'
+        taskTitle = 'Enviar Feedback'
         taskDescription = feature.feedback || 'Provide feedback to the client'
         taskStatus = 'PENDING'
       } else if (feature.type === 'CONSULTATION') {
         taskType = 'CONSULTATION'
-        taskTitle = 'Initial Consultation'
-        taskDescription = 'Schedule or conduct initial consultation with client'
+        taskTitle = 'Consulta inicial'
+        taskDescription = 'Agendar consulta inicial com o cliente'
+        taskStatus = 'PENDING'
 
         if (feature.consultationMeetingId) {
           const meeting = await prisma.meeting.findUnique({
@@ -83,8 +86,8 @@ export async function getTasksByProfessionalIdService(professionalId: string) {
         }
       } else if (feature.type === 'RETURN') {
         taskType = 'RETURN'
-        taskTitle = 'Follow-up Meeting'
-        taskDescription = 'Schedule or conduct follow-up meeting with client'
+        taskTitle = 'Consulta de retorno'
+        taskDescription = 'Agendar retorno com o cliente'
 
         // Check if there's a meeting for this return
         if (feature.returnMeetingId) {

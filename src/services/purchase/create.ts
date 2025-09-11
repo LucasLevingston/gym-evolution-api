@@ -1,39 +1,39 @@
-import type { CreatePurchaseInput } from '../../schemas/purchase-schema';
-import { createPaymentService } from '../../services/mercadopago/create';
-import { prisma } from 'lib/prisma';
+import type { CreatePurchaseInput } from '../../schemas/purchase-schema'
+import { createPaymentService } from '../../services/mercadopago/create'
+import { prisma } from 'lib/prisma'
 
 export async function createPurchaseService(params: CreatePurchaseInput) {
-  const { planId, successUrl, cancelUrl, amount, buyerId } = params;
+  const { planId, successUrl, cancelUrl, amount, buyerId } = params
 
   try {
     return await prisma.$transaction(async (tx) => {
       const plan = await tx.plan.findUnique({
         where: { id: planId },
         include: { professional: true },
-      });
+      })
 
       if (!plan) {
-        throw new Error('Plan not found');
+        throw new Error('Plan not found')
       }
 
       if (!plan.isActive) {
-        throw new Error('Plan is not active');
+        throw new Error('Plan is not active')
       }
 
       const buyer = await tx.user.findUnique({
         where: { id: buyerId },
         select: { name: true, email: true },
-      });
+      })
 
       if (!buyer) {
-        throw new Error('Buyer not found');
+        throw new Error('Buyer not found')
       }
 
       const purchase = await tx.purchase.create({
         data: {
           planId,
           amount,
-          status: 'PENDING',
+          status: 'WAITINGPAYMENT',
           professionalId: plan.professionalId,
           buyerId,
         },
@@ -44,7 +44,7 @@ export async function createPurchaseService(params: CreatePurchaseInput) {
             },
           },
         },
-      });
+      })
 
       const paymentResult = await createPaymentService({
         purchaseId: purchase.id,
@@ -56,14 +56,14 @@ export async function createPurchaseService(params: CreatePurchaseInput) {
         professionalId: plan.professionalId,
         buyerId,
         planId,
-      });
+      })
 
       const updatedPurchase = await tx.purchase.update({
         where: { id: purchase.id },
         data: {
           paymentId: paymentResult.paymentId,
           paymentMethod: paymentResult.paymentMethod,
-          status: paymentResult.status === 'approved' ? 'COMPLETED' : 'PENDING',
+          status: paymentResult.status === 'COMPLETED' ? 'COMPLETED' : 'WAITINGPAYMENT',
         },
         include: {
           Plan: {
@@ -72,7 +72,7 @@ export async function createPurchaseService(params: CreatePurchaseInput) {
             },
           },
         },
-      });
+      })
 
       return {
         purchase: updatedPurchase,
@@ -80,12 +80,12 @@ export async function createPurchaseService(params: CreatePurchaseInput) {
         paymentUrl: paymentResult.paymentUrl,
         status: updatedPurchase.status,
         preferenceId: paymentResult.preferenceId,
-      };
-    });
+      }
+    })
   } catch (error) {
-    console.error('Error in createPurchaseService:', error);
-    throw error;
+    console.error('Error in createPurchaseService:', error)
+    throw error
   } finally {
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   }
 }

@@ -10,7 +10,7 @@ export async function createPlanController(
   try {
     const user = request.user as User
     const { plan } = request.body
-    console.log(plan)
+
     if (user.role !== 'NUTRITIONIST' && user.role !== 'TRAINER') {
       throw new ClientError('Only professionals can create plans')
     }

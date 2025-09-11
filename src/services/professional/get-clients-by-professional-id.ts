@@ -6,7 +6,7 @@ export async function getClientsByProfessionalIdService(
 ): Promise<Client[]> {
   try {
     if (!professionalId) {
-      throw new Error('Professional ID is required')
+      throw new Error('O ID do profissional é obrigatório')
     }
 
     const purchases = await prisma.purchase.findMany({
@@ -72,7 +72,7 @@ export async function getClientsByProfessionalIdService(
           tasks: [],
         })
       } else {
-        // Atualize o isActive se esta compra for ativa
+        // Atualiza o isActive se esta compra for ativa
         const clientData = clientMap.get(buyer.id)
         if (purchase.status === 'ACTIVE') {
           clientData.isActive = true // Define como ativo se houver uma compra ativa
@@ -91,42 +91,83 @@ export async function getClientsByProfessionalIdService(
 
         if (purchase.status === 'ACTIVE' && purchase.Plan?.features) {
           for (const feature of purchase.Plan.features) {
-            let taskStatus = 'PENDING'
-            taskStatus = 'PENDING'
-            let taskTitle = feature.name
+            let taskType: 'TRAINING' | 'DIET' | 'FEEDBACK' | 'CONSULTATION' | 'RETURN'
+            let taskStatus: 'COMPLETED' | 'PENDING' | 'IN_PROGRESS'
+            let taskTitle = ''
             let taskDescription = ''
-            if (feature.isTrainingWeek) {
-              if (feature.trainingWeekId) taskStatus = 'COMPLETED'
-              taskTitle = `Treino: ${feature.name}`
-              taskDescription = 'Plano de treino a ser realizado'
-            } else if (feature.isDiet) {
-              if (feature.dietId) taskStatus = 'COMPLETED'
-              taskTitle = `Dieta: ${feature.name}`
-              taskDescription = 'Plano alimentar a ser seguido'
-            } else if (feature.isFeedback) {
-              taskTitle = `Feedback: ${feature.name}`
-              taskDescription = feature.feedback || 'Feedback pendente'
-            } else if (feature.isConsultation) {
-              taskTitle = `Consulta: ${feature.name}`
-              taskDescription = 'Consulta a ser agendada'
-            } else if (feature.isReturn) {
-              taskTitle = `Retorno: ${feature.name}`
-              taskDescription = 'Consulta de retorno a ser agendada'
+            let dueDate = null
+            if (feature.type === 'TRAINING_WEEK') {
+              taskType = 'TRAINING'
+              taskTitle = 'Criar Plano de Treino'
+              taskDescription = 'Criar um plano de treino para o cliente'
+              taskStatus = 'PENDING'
+
+              if (feature.trainingWeekId) {
+                taskStatus = 'COMPLETED'
+              }
+            } else if (feature.type === 'DIET') {
+              taskType = 'DIET'
+              taskTitle = 'Criar Plano de Dieta'
+              taskDescription = 'Criar um plano de dieta para o cliente'
+              taskStatus = 'PENDING'
+
+              if (feature.dietId) {
+                taskStatus = 'COMPLETED'
+              }
+            } else if (feature.type === 'FEEDBACK') {
+              taskType = 'FEEDBACK'
+              taskTitle = 'Fornecer Feedback'
+              taskDescription = feature.feedback || 'Fornecer feedback ao cliente'
+              taskStatus = 'PENDING'
+            } else if (feature.type === 'CONSULTATION') {
+              taskType = 'CONSULTATION'
+              taskTitle = 'Consulta Inicial'
+              taskDescription = 'Agendar ou realizar consulta inicial com o cliente'
+              taskStatus = 'PENDING'
+
+              if (feature.consultationMeetingId) {
+                const meeting = await prisma.meeting.findUnique({
+                  where: { id: feature.consultationMeetingId },
+                })
+
+                if (meeting) {
+                  taskStatus =
+                    meeting.status === 'COMPLETED' ? 'COMPLETED' : 'IN_PROGRESS'
+
+                  if (meeting.startTime) {
+                    dueDate = meeting.startTime.toISOString()
+                  }
+                }
+              }
+            } else if (feature.type === 'RETURN') {
+              taskType = 'RETURN'
+              taskTitle = 'Reunião de Acompanhamento'
+              taskDescription =
+                'Agendar ou realizar reunião de acompanhamento com o cliente'
+
+              // Verifica se há uma reunião para este retorno
+              if (feature.returnMeetingId) {
+                const meeting = await prisma.meeting.findUnique({
+                  where: { id: feature.returnMeetingId },
+                })
+
+                if (meeting) {
+                  taskStatus =
+                    meeting.status === 'COMPLETED' ? 'COMPLETED' : 'IN_PROGRESS'
+
+                  // Define a data de vencimento se a reunião estiver agendada
+                  if (meeting.startTime) {
+                    dueDate = meeting.startTime.toISOString()
+                  }
+                }
+              }
+            } else {
+              continue
             }
 
             clientData.tasks.push({
               id: feature.id,
-              type: feature.isTrainingWeek
-                ? 'TRAINING'
-                : feature.isDiet
-                ? 'DIET'
-                : feature.isFeedback
-                ? 'FEEDBACK'
-                : feature.isConsultation
-                ? 'CONSULTATION'
-                : feature.isReturn
-                ? 'RETURN'
-                : 'OTHER',
+              type: feature.type,
               title: taskTitle,
               description: taskDescription,
               status: taskStatus,
@@ -136,7 +177,7 @@ export async function getClientsByProfessionalIdService(
           }
         }
 
-        // Also add meetings as tasks for completeness
+        // Também adiciona reuniões como tarefas para completude
         if (purchase.Meeting && purchase.Meeting.length > 0) {
           for (const meeting of purchase.Meeting) {
             clientData.tasks.push({
@@ -151,12 +192,12 @@ export async function getClientsByProfessionalIdService(
         }
       }
     }
-    console.log(clientMap)
+
     const clients = Array.from(clientMap.values())
 
     return clients
   } catch (error) {
-    console.error('Error in getClientsByProfessionalIdService:', error)
+    console.error('Erro no getClientsByProfessionalIdService:', error)
     throw error
   }
 }

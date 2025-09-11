@@ -38,7 +38,6 @@ export async function createPaymentService({
         failure: `${cancelUrl}?status=failure`,
         pending: `${successUrl}?status=pending`,
       },
-      auto_return: 'approved',
       notification_url: `${process.env.API_BASE_URL}/api/webhooks/mercadopago`,
       metadata: {
         purchaseId,
@@ -54,15 +53,14 @@ export async function createPaymentService({
 
     const response = await mercadoPago.preference.create({ body: preference })
 
-    // Return payment information
     return {
       paymentId: response.payment_methods?.default_card_id,
       paymentUrl: response.init_point,
       preferenceId: response.id,
       status: 'PENDING',
-      paymentMethod: 'mercadopago', // Will be updated when payment is completed
+      paymentMethod: 'mercadopago',
     }
-  } catch (error) {
-    throw error
+  } catch (error: any) {
+    throw error.error
   }
 }

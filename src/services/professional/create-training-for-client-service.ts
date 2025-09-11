@@ -12,7 +12,7 @@ interface CreateTrainingForClientInput {
   trainingDays: TrainingDayInput[]
 }
 interface TrainingDayInput {
-  group: string
+  muscleGroups: string[]
   dayOfWeek: string
   comments?: string
   exercises: ExerciseInput[]
@@ -24,6 +24,7 @@ interface ExerciseInput {
   repetitions: number
   sets: number
   seriesResults?: SerieInput[]
+  group: string
 }
 
 interface SerieInput {
@@ -37,7 +38,7 @@ export async function createTrainingForClientService(data: CreateTrainingForClie
     const feature = await prisma.feature.findFirst({
       where: {
         id: data.featureId,
-        Plan: {
+        plan: {
           purchases: {
             some: {
               id: data.purchaseId,
@@ -46,7 +47,7 @@ export async function createTrainingForClientService(data: CreateTrainingForClie
             },
           },
         },
-        isTrainingWeek: true,
+        type: 'TRAINING_WEEK',
       },
     })
 
@@ -74,7 +75,7 @@ export async function createTrainingForClientService(data: CreateTrainingForClie
       for (const day of data.trainingDays) {
         const createdDay = await tx.trainingDay.create({
           data: {
-            group: day.group,
+            muscleGroups: day.muscleGroups,
             dayOfWeek: day.dayOfWeek,
             comments: day.comments,
             isCompleted: false,
@@ -92,6 +93,7 @@ export async function createTrainingForClientService(data: CreateTrainingForClie
               sets: exercise.sets,
               isCompleted: false,
               trainingDayId: createdDay.id,
+              group: exercise.group,
             },
           })
 

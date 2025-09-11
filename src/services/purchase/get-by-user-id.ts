@@ -1,4 +1,4 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from 'lib/prisma'
 
 export async function getPurchasesByUserIdService(userId: string) {
   const purchase = prisma.purchase.findMany({
@@ -19,10 +19,9 @@ export async function getPurchasesByUserIdService(userId: string) {
         },
       },
       Plan: true,
-      relationship: true,
     },
     orderBy: { createdAt: 'desc' },
-  });
+  })
 
-  return purchase;
+  return purchase
 }

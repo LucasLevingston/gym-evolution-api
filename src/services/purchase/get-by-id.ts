@@ -7,7 +7,6 @@ export async function getPurchaseByIdService(id: string) {
       buyer: true,
       professional: true,
       Plan: { include: { features: true } },
-      relationship: true,
     },
   })
 }

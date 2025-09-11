@@ -9,6 +9,7 @@ export async function createTrainingForClientController(
   try {
     const { id: professionalId } = request.user as User
     const { trainingWeek } = request.body
+    console.log(trainingWeek)
 
     if (!trainingWeek) {
       throw new ClientError('Error on request body')
@@ -24,7 +25,6 @@ export async function createTrainingForClientController(
       information,
       trainingDays,
     } = trainingWeek
-
     const data = await createTrainingForClientService({
       clientId,
       professionalId,

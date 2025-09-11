@@ -7,7 +7,7 @@ export const createProfessionalSettingsController = async (
 ) => {
   try {
     const { professionalSettings } = request.body
-    console.log(request.body)
+
     const result = createProfessionalSettingsService(professionalSettings)
 
     return result

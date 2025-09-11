@@ -1,53 +1,53 @@
-import fastify from 'fastify'
-import fastifySwagger from '@fastify/swagger'
-import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUi from '@fastify/swagger-ui'
+import fastify from 'fastify'
 import {
+  type ZodTypeProvider,
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
-  type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
-import { userRoutes } from './routes/user-routes'
-import { authRoutes } from './routes/auth-routes'
-import { historyRoutes } from './routes/history-routes'
-import { trainingWeekRoutes } from './routes/training-week-routes'
-import { weightRoutes } from './routes/weight-routes'
-import { trainingDayRoutes } from './routes/training-day-routes'
-import { exerciseRoutes } from './routes/exercise-routes'
-import { serieRoutes } from './routes/serie-routes'
-import { dietRoutes } from './routes/diet-routes'
-import { mealRoutes } from './routes/meal-routes'
-import { mealItemsRoutes } from './routes/meal-items-routes'
-import { errorHandler } from './utils/error-handler'
-import { env } from './env'
-import { professionalRoutes } from 'routes/professional-routes'
-import { planRoutes } from 'routes/plan-routes'
-import { notificationRoutes } from 'routes/notification-routes'
-import { purchaseRoutes } from 'routes/purchase-routes'
-import { meetingRoutes } from 'routes/meeting-routes'
-import { googleRoutes } from 'routes/google-routes'
+import path from 'path'
 import fastifyCookie from '@fastify/cookie'
 import fastifyMultipart from '@fastify/multipart'
 import fastifyStatic from '@fastify/static'
-import path from 'path'
 import { fatsecretRoutes } from 'routes/fatsecret-routes'
+import { googleRoutes } from 'routes/google-routes'
+import { meetingRoutes } from 'routes/meeting-routes'
+import { notificationRoutes } from 'routes/notification-routes'
+import { planRoutes } from 'routes/plan-routes'
+import { professionalRoutes } from 'routes/professional-routes'
+import { purchaseRoutes } from 'routes/purchase-routes'
+import { env } from './env'
+import { authRoutes } from './routes/auth-routes'
+import { dietRoutes } from './routes/diet-routes'
+import { exerciseRoutes } from './routes/exercise-routes'
+import { historyRoutes } from './routes/history-routes'
+import { mealItemsRoutes } from './routes/meal-items-routes'
+import { mealRoutes } from './routes/meal-routes'
+import { serieRoutes } from './routes/serie-routes'
+import { trainingDayRoutes } from './routes/training-day-routes'
+import { trainingWeekRoutes } from './routes/training-week-routes'
+import { userRoutes } from './routes/user-routes'
+import { weightRoutes } from './routes/weight-routes'
+import { errorHandler } from './utils/error-handler'
 
-const { PORT: port, HOST: host, JWT_SECRET_KEY } = env
+const { JWT_SECRET_KEY } = env
 
-const app = fastify().withTypeProvider<ZodTypeProvider>()
+const server = fastify().withTypeProvider<ZodTypeProvider>()
 
-app.register(fastifyCors, {
+server.register(fastifyCors, {
   origin: '*',
 })
 
-app.register(fastifyJwt, {
+server.register(fastifyJwt, {
   secret: JWT_SECRET_KEY || 'secret-key',
 })
 
-app.register(fastifySwagger, {
+server.register(fastifySwagger, {
   openapi: {
     openapi: '3.0.0',
     info: {
@@ -59,7 +59,7 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 })
 
-app.register(fastifySwaggerUi, {
+server.register(fastifySwaggerUi, {
   routePrefix: '/docs',
   uiConfig: {
     docExpansion: 'list',
@@ -67,51 +67,44 @@ app.register(fastifySwaggerUi, {
   },
 })
 
-app.setErrorHandler(errorHandler)
-app.setValidatorCompiler(validatorCompiler)
-app.setSerializerCompiler(serializerCompiler)
-app.register(fastifyCookie)
-app.register(fastifyMultipart, {
+server.setErrorHandler(errorHandler)
+server.setValidatorCompiler(validatorCompiler)
+server.setSerializerCompiler(serializerCompiler)
+server.register(fastifyCookie)
+server.register(fastifyMultipart, {
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
 })
 
-app.register(fastifyStatic, {
+server.register(fastifyStatic, {
   root: path.join(process.cwd(), 'uploads'),
   prefix: '/uploads/',
 })
 
-app.register(userRoutes, { prefix: '/users' })
-app.register(authRoutes, { prefix: '/auth' })
-app.register(historyRoutes, { prefix: '/history' })
-app.register(trainingWeekRoutes, { prefix: '/training-weeks' })
-app.register(weightRoutes, { prefix: '/weights' })
-app.register(trainingDayRoutes, { prefix: '/training-days' })
-app.register(exerciseRoutes, { prefix: '/exercises' })
-app.register(serieRoutes, { prefix: '/series' })
-app.register(dietRoutes, { prefix: '/diets' })
-app.register(mealRoutes, { prefix: '/meals' })
-app.register(mealItemsRoutes, { prefix: '/meal-items' })
-app.register(professionalRoutes, { prefix: '/professionals' })
-app.register(planRoutes, { prefix: '/plans' })
-app.register(notificationRoutes, { prefix: '/notifications' })
-app.register(purchaseRoutes, { prefix: '/purchases' })
-app.register(meetingRoutes, { prefix: '/meetings' })
-app.register(googleRoutes, { prefix: '/google' })
-app.register(fatsecretRoutes, { prefix: '/fatsecret' })
+server.register(userRoutes, { prefix: '/users' })
+server.register(authRoutes, { prefix: '/auth' })
+server.register(historyRoutes, { prefix: '/history' })
+server.register(trainingWeekRoutes, { prefix: '/training-weeks' })
+server.register(weightRoutes, { prefix: '/weights' })
+server.register(trainingDayRoutes, { prefix: '/training-days' })
+server.register(exerciseRoutes, { prefix: '/exercises' })
+server.register(serieRoutes, { prefix: '/series' })
+server.register(dietRoutes, { prefix: '/diets' })
+server.register(mealRoutes, { prefix: '/meals' })
+server.register(mealItemsRoutes, { prefix: '/meal-items' })
+server.register(professionalRoutes, { prefix: '/professionals' })
+server.register(planRoutes, { prefix: '/plans' })
+server.register(notificationRoutes, { prefix: '/notifications' })
+server.register(purchaseRoutes, { prefix: '/purchases' })
+server.register(meetingRoutes, { prefix: '/meetings' })
+server.register(googleRoutes, { prefix: '/google' })
+server.register(fatsecretRoutes, { prefix: '/fatsecret' })
 
-app.get('/help', () => {
+server.get('/help', () => {
   return {
     message: 'Welcome to GymEvolution!',
   }
 })
 
-app.listen({ host, port }, async (err) => {
-  if (err) {
-    console.error(err)
-    process.exit(1)
-  }
-
-  console.log(`Server is running on http://${host}:${port}`)
-})
+export { server }
