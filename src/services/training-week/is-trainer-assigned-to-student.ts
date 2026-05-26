@@ -4,13 +4,13 @@ export async function isTrainerAssignedToStudent(
   trainerId: string,
   studentId: string
 ) {
-  const relationship = await prisma.relationship.findFirst({
+  const purchase = await prisma.purchase.findFirst({
     where: {
-      trainerId,
-      student2Id: studentId,
+      professionalId: trainerId,
+      buyerId: studentId,
       status: 'ACTIVE',
     },
   })
 
-  return !!relationship
+  return !!purchase
 }

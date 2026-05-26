@@ -1,9 +1,9 @@
 import type { FastifyRequest } from 'fastify';
 import { registerUserService } from '../../services/auth/register';
-import { getUserByEmailService } from 'services/user/get-by-email';
-import { ClientError } from 'errors/client-error';
-import { generateToken, hashPassword } from 'utils/jwt';
-import { createHistoryEntry } from 'services/history/create-history-entry';
+import { getUserByEmailService } from '@/services/user/get-by-email';
+import { ClientError } from '@/errors/client-error';
+import { generateToken, hashPassword } from '@/utils/jwt';
+import { createHistoryEntry } from '@/services/history/create-history-entry';
 
 export async function registerController(
   request: FastifyRequest<{

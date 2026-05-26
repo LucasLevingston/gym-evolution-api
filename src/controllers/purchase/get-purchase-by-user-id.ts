@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
-import { PurchaseQuery } from 'schemas/purchase-schema';
-import { getPurchasesByUserIdService } from 'services/purchase/get-by-user-id';
+import { PurchaseQuery } from '@/schemas/purchase-schema';
+import { getPurchasesByUserIdService } from '@/services/purchase/get-by-user-id';
 
 export async function getPurchasesByUserIdController(
   request: FastifyRequest<{ Querystring: PurchaseQuery; Params: { userId: string } }>

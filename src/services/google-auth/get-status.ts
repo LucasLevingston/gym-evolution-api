@@ -1,5 +1,5 @@
-import { oauth2Client } from 'lib/oauth2Client';
-import { prisma } from 'lib/prisma';
+import { oauth2Client } from '@/lib/oauth2Client';
+import { prisma } from '@/lib/prisma';
 
 export async function getConnectionStatus(userId: string) {
   const googleAuth = await prisma.googleConnection.findUnique({

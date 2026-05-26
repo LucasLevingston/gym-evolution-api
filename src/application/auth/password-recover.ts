@@ -1,0 +1,15 @@
+import { prisma } from '@/infrastructure/database/prisma/client';
+
+export async function passwordRecoverService(
+  email: string,
+  token: string,
+  expirationDate: Date
+) {
+  return await prisma.user.update({
+    where: { email },
+    data: {
+      resetPasswordToken: token,
+      resetPasswordExpires: expirationDate,
+    },
+  });
+}

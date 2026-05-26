@@ -2,8 +2,8 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 import { authenticate } from '../middlewares/authenticate';
-import { getHistoryController } from 'controllers/history/get';
-import { errorResponseSchema } from 'schemas/error-schema';
+import { getHistoryController } from '@/controllers/history/get';
+import { errorResponseSchema } from '@/schemas/error-schema';
 
 export async function historyRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();

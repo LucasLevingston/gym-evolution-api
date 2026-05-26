@@ -1,6 +1,6 @@
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import type { FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export async function getSubscriptionPlanByIdController(
   request: FastifyRequest<{ Params: { id: string } }>

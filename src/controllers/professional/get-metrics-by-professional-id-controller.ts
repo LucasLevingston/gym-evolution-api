@@ -1,7 +1,7 @@
 import { getAllProfessionalMetrics } from '@/services/professional/get-metrics-by-professional-id-service'
 import { Review } from '@prisma/client'
 import { FastifyRequest } from 'fastify'
-import { getClientsByProfessionalIdService } from 'services/professional/get-clients-by-professional-id'
+import { getClientsByProfessionalIdService } from '@/services/professional/get-clients-by-professional-id'
 
 export async function getMetricsByProfessionalIdController(
   request: FastifyRequest<{

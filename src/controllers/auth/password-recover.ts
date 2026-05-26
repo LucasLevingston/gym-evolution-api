@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getUserByEmailService } from 'services/user/get-by-email';
-import { passwordRecoverService } from 'services/auth/password-recover';
-import { ClientError } from 'errors/client-error';
-import { sendMail } from 'utils/sendMail';
+import { getUserByEmailService } from '@/services/user/get-by-email';
+import { passwordRecoverService } from '@/services/auth/password-recover';
+import { ClientError } from '@/errors/client-error';
+import { sendMail } from '@/utils/sendMail';
 import { env } from '../../env';
-import { generateToken } from 'utils/jwt';
+import { generateToken } from '@/utils/jwt';
 
 export async function passwordRecover(
   request: FastifyRequest<{ Body: { email: string } }>,

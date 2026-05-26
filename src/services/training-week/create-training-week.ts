@@ -1,3 +1,4 @@
+import { DayOfWeekEnum } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { createHistoryEntry } from '../history/create-history-entry'
 
@@ -11,8 +12,8 @@ interface Exercise {
 }
 
 interface TrainingDay {
-  muscleGroup: string[]
-  dayOfWeek: string
+  muscleGroups: string[]
+  dayOfWeek: DayOfWeekEnum
   day?: string | Date
   comments?: string
   isCompleted?: boolean

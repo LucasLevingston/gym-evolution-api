@@ -3,11 +3,11 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 import { authenticate } from '../middlewares/authenticate';
 import { errorResponseSchema } from '../schemas/error-schema';
-import { createExerciseController } from 'controllers/exercise/create';
-import { updateExerciseController } from 'controllers/exercise/update';
-import { deleteExerciseController } from 'controllers/exercise/delete';
-import { markExerciseAsDoneController } from 'controllers/exercise/markExerciseAsDoneController';
-import { idParamSchema } from 'schemas/common-schemas';
+import { createExerciseController } from '@/controllers/exercise/create';
+import { updateExerciseController } from '@/controllers/exercise/update';
+import { deleteExerciseController } from '@/controllers/exercise/delete';
+import { markExerciseAsDoneController } from '@/controllers/exercise/markExerciseAsDoneController';
+import { idParamSchema } from '@/schemas/common-schemas';
 
 export async function exerciseRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();

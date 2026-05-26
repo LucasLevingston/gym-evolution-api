@@ -1,6 +1,6 @@
 import type { CreatePurchaseInput } from '../../schemas/purchase-schema'
 import { createPaymentService } from '../../services/mercadopago/create'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export async function createPurchaseService(params: CreatePurchaseInput) {
   const { planId, successUrl, cancelUrl, amount, buyerId } = params

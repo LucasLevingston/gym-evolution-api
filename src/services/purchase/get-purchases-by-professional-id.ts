@@ -1,4 +1,4 @@
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 export async function getPurchasesByProfessionalIdService(id: string) {
   return await prisma.purchase.findMany({

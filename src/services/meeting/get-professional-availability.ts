@@ -1,9 +1,9 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { google } from 'googleapis';
-import { oauth2Client } from 'lib/oauth2Client';
+import { oauth2Client } from '@/lib/oauth2Client';
 import { startOfDay, endOfDay, parseISO } from 'date-fns';
-import { ClientError } from 'errors/client-error';
-import { getUserByIdService } from 'services/user/get-user-by-id';
+import { ClientError } from '@/errors/client-error';
+import { getUserByIdService } from '@/services/user/get-user-by-id';
 
 export interface TimeSlot {
   startTime: string;

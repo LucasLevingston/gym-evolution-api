@@ -1,7 +1,7 @@
 import { FastifyRequest } from 'fastify'
-import { ClientError } from 'errors/client-error'
-import { comparePassword, generateToken } from 'utils/jwt'
-import { getUserByEmailService } from 'services/user/get-by-email'
+import { ClientError } from '@/errors/client-error'
+import { comparePassword, generateToken } from '@/utils/jwt'
+import { getUserByEmailService } from '@/services/user/get-by-email'
 
 export async function loginController(
   request: FastifyRequest<{ Body: { email: string; password: string } }>

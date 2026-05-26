@@ -1,6 +1,6 @@
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import { FastifyRequest } from 'fastify'
-import { getWeightHistory } from 'services/weight/get-weight-history'
+import { getWeightHistory } from '@/services/weight/get-weight-history'
 
 export async function getWeightController(
   request: FastifyRequest<{

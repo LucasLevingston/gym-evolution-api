@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getUserCalendarService } from 'services/calendar/get-user-calendar';
+import { getUserCalendarService } from '@/services/calendar/get-user-calendar';
 
 export async function getUserCalendarController(
   request: FastifyRequest,

@@ -1,6 +1,6 @@
 import { ProfessionalSettings } from '@prisma/client'
-import { prisma } from 'lib/prisma'
-import { getUserByIdService } from 'services/user/get-user-by-id'
+import { prisma } from '@/lib/prisma'
+import { getUserByIdService } from '@/services/user/get-user-by-id'
 
 interface RegisterProfessionalParams {
   userId: string

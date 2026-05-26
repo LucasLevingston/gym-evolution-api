@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { isProfessionalAssignedToStudent } from 'services/training-week/is-professional-assigned-to-student';
-import { addWeightRecord } from 'services/weight/add-weight-record';
+import { isProfessionalAssignedToStudent } from '@/services/training-week/is-professional-assigned-to-student';
+import { addWeightRecord } from '@/services/weight/add-weight-record';
 
 export const addWeightRecordController = async (
   request: FastifyRequest<{

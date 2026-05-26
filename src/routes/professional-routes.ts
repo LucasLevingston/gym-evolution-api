@@ -1,86 +1,72 @@
 import {
   getNutritionistsController,
   getTrainersController,
-} from 'controllers/professional'
-import { getProfessionalsController } from 'controllers/professional/get-all'
-import { getProfessionalByIdController } from 'controllers/professional/get-by-id'
+} from '@/controllers/professional'
+import { getProfessionalsController } from '@/controllers/professional/get-all'
+import { getProfessionalByIdController } from '@/controllers/professional/get-by-id'
+import { approveProfessionalController } from '@/controllers/professional/approve-professional'
+import { createDietForClientController } from '@/controllers/professional/create-diet-for-client-controller'
+import { createFeedbackForClientController } from '@/controllers/professional/create-feedback-for-client-controller'
+import { createProfessionalSettingsController } from '@/controllers/professional/create-professional-settings-controller'
+import { createTrainingForClientController } from '@/controllers/professional/create-training-for-client-controller'
+import { getClientsByProfessionalIdController } from '@/controllers/professional/get-clients-by-professional-id-controller'
+import { getMetricsByProfessionalIdController } from '@/controllers/professional/get-metrics-by-professional-id-controller'
+import { getTasksByProfessionalIdController } from '@/controllers/professional/get-tasks-by-professional-id-controller'
+import { rejectProfessionalController } from '@/controllers/professional/reject-professional'
+import { updateProfessionalSettingsController } from '@/controllers/professional/update-professional-settings-controller'
 import type { FastifyInstance } from 'fastify'
-import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { registerProfessionalController } from '@/controllers/professional/register-professional'
-import { authenticate } from 'middlewares/authenticate'
-import { rejectProfessionalController } from 'controllers/professional/reject-professional'
-import { approveProfessionalController } from 'controllers/professional/approve-professional'
-import { getClientsByProfessionalIdController } from 'controllers/professional/get-clients-by-professional-id-controller'
-import { getTasksByProfessionalIdController } from 'controllers/professional/get-tasks-by-professional-id-controller'
-import { getMetricsByProfessionalIdController } from 'controllers/professional/get-metrics-by-professional-id-controller'
-import { createDietForClientController } from 'controllers/professional/create-diet-for-client-controller'
-import { createTrainingForClientController } from 'controllers/professional/create-training-for-client-controller'
-import { updateProfessionalSettingsController } from 'controllers/professional/update-professional-settings-controller'
-import { createProfessionalSettingsController } from 'controllers/professional/create-professional-settings-controller'
-import { createFeedbackForClientController } from 'controllers/professional/create-feedback-for-client-controller'
-// import { createTrainingFeedbackController } from 'controllers/professional/create-training-feedback-controller'
-// import { createDietFeedbackController } from 'controllers/professional/create-diet-feedback-controller'
+import { authenticate } from '@/middlewares/authenticate'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyHandler = any
 
 export async function professionalRoutes(app: FastifyInstance) {
-  const server = app.withTypeProvider<ZodTypeProvider>()
+  app.get('/:id', getProfessionalByIdController as AnyHandler)
+  app.get('/nutritionists', getNutritionistsController as AnyHandler)
+  app.get('/trainers', getTrainersController as AnyHandler)
+  app.get('/all', getProfessionalsController as AnyHandler)
 
-  server.get('/:id', getProfessionalByIdController)
-  server.get('/nutritionists', getNutritionistsController)
-  server.get('/trainers', getTrainersController)
-  server.get('/all', getProfessionalsController)
+  app.post('/register', { onRequest: [authenticate] }, registerProfessionalController as AnyHandler)
+  app.get('/reject/:id', { onRequest: [authenticate] }, rejectProfessionalController as AnyHandler)
+  app.get('/approve/:id', { onRequest: [authenticate] }, approveProfessionalController as AnyHandler)
 
-  server.post('/register', { onRequest: [authenticate] }, registerProfessionalController)
-  server.get('/reject/:id', { onRequest: [authenticate] }, rejectProfessionalController)
-  server.get('/approve/:id', { onRequest: [authenticate] }, approveProfessionalController)
-
-  server.get(
+  app.get(
     '/get-clients/:professionalId',
     { onRequest: [authenticate] },
-    getClientsByProfessionalIdController
+    getClientsByProfessionalIdController as AnyHandler
   )
-  server.get(
+  app.get(
     '/:professionalId/tasks',
     { onRequest: [authenticate] },
-    getTasksByProfessionalIdController
+    getTasksByProfessionalIdController as AnyHandler
   )
-  server.get(
+  app.get(
     '/:professionalId/metrics',
     { onRequest: [authenticate] },
-    getMetricsByProfessionalIdController
+    getMetricsByProfessionalIdController as AnyHandler
   )
-  server.put(
+  app.put(
     '/:professionalId',
     { onRequest: [authenticate] },
-    updateProfessionalSettingsController
+    updateProfessionalSettingsController as AnyHandler
   )
-  server.post('/', { onRequest: [authenticate] }, createProfessionalSettingsController)
+  app.post('/', { onRequest: [authenticate] }, createProfessionalSettingsController as AnyHandler)
 
-  server.post(
+  app.post(
     '/client/training',
     { onRequest: [authenticate] },
-    createTrainingForClientController
+    createTrainingForClientController as AnyHandler
   )
 
-  server.post(
+  app.post(
     '/client/diet',
     { onRequest: [authenticate] },
-    createDietForClientController
+    createDietForClientController as AnyHandler
   )
-  server.post(
+  app.post(
     '/client/feedback',
     { onRequest: [authenticate] },
-    createFeedbackForClientController
+    createFeedbackForClientController as AnyHandler
   )
-
-  // server.post(
-  //   '/client/training-feedback',
-  //   { onRequest: [authenticate] },
-  //   createTrainingFeedbackController
-  // )
-
-  // server.post(
-  //   '/client/diet-feedback',
-  //   { onRequest: [authenticate] },
-  //   createDietFeedbackController
-  // )
 }

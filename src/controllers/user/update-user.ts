@@ -1,11 +1,11 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { updateUserService } from '../../services/user/update-user'
 import { ClientError } from '../../errors/client-error'
-import { s3Client } from 'lib/s3Client'
+import { s3Client } from '@/lib/s3Client'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
-import { getUserByIdService } from 'services/user/get-user-by-id'
+import { getUserByIdService } from '@/services/user/get-user-by-id'
 import { User } from '@prisma/client'
-import { addToHistory } from 'services/history/add'
+import { addToHistory } from '@/services/history/add'
 import { env } from '@/env'
 
 interface Params {
@@ -78,11 +78,15 @@ export async function updateUserController(
         const formFields: Record<string, any> = {}
         for (const [key, value] of Object.entries(data.fields)) {
           try {
-            if (value?.value) {
-              formFields[key] = JSON.parse(value.value)
+            const field = Array.isArray(value) ? value[0] : value
+            if (field && field.type === 'field' && field.value) {
+              formFields[key] = JSON.parse(field.value as string)
             }
           } catch {
-            formFields[key] = value.value
+            const field = Array.isArray(value) ? value[0] : value
+            if (field && field.type === 'field') {
+              formFields[key] = field.value
+            }
           }
         }
 

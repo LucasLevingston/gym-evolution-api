@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { getUserHistory } from 'services/history/get-user-history'
+import { getUserHistory } from '@/services/history/get-user-history'
 
 export async function getHistoryController(
   request: FastifyRequest<{

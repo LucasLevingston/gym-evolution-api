@@ -16,7 +16,7 @@ export async function createPurchaseController(
 
     const result = await createPurchaseService(purchaseData)
 
-    if (result.status === 'PENDING') {
+    if (result.status === 'WAITINGPAYMENT') {
       await createNotificationService({
         title: 'Pagamento pendente',
         message: `Você iniciou um pedido do plano ${result.purchase.Plan.name}. Complete o pagamento para ativar seu plano.`,

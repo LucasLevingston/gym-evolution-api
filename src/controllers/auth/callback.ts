@@ -2,8 +2,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 import { oauth2Client } from '@/lib/oauth2Client';
 import { callbackGoogleService } from '@/services/auth/callback';
 import { env } from '@/env';
-import { ClientError } from 'errors/client-error';
-import { createNotificationService } from 'services/notification';
+import { ClientError } from '@/errors/client-error';
+import { createNotificationService } from '@/services/notification';
 
 export async function googleCallbackController(
   request: FastifyRequest,

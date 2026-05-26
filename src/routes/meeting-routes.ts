@@ -1,12 +1,12 @@
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { authenticate } from 'middlewares/authenticate';
-import { errorResponseSchema } from 'schemas/error-schema';
-import { getUserCalendarController } from 'controllers/meeting/get-user-calendar';
-import { getProfessionalAvailabilityController } from 'controllers/meeting/get-professional-availability';
-import { createMeetingController } from 'controllers/meeting';
-import { createMeetingSchema, meetingSchema } from 'schemas/meeting-schema';
+import { authenticate } from '@/middlewares/authenticate';
+import { errorResponseSchema } from '@/schemas/error-schema';
+import { getUserCalendarController } from '@/controllers/meeting/get-user-calendar';
+import { getProfessionalAvailabilityController } from '@/controllers/meeting/get-professional-availability';
+import { createMeetingController } from '@/controllers/meeting';
+import { createMeetingSchema, meetingSchema } from '@/schemas/meeting-schema';
 
 const timeSlotSchema = z.object({
   startTime: z.string().datetime(),

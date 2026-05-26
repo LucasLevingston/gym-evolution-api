@@ -1,10 +1,12 @@
+import { DayOfWeekEnum } from '@prisma/client';
 import { prisma } from '../../lib/prisma';
 import { createHistoryEntry } from '../history/create-history-entry';
 import { ClientError } from '../../errors/client-error';
 
 interface UpdateTrainingDayParams {
-  group?: string;
-  dayOfWeek?: string;
+  muscleGroups?: string[];
+  dayOfWeek?: DayOfWeekEnum;
+  isCompleted?: boolean;
   comments?: string;
 }
 
@@ -27,7 +29,7 @@ export async function updateTrainingDay(id: string, data: UpdateTrainingDayParam
 
   await createHistoryEntry(
     trainingDay.trainingWeek.userId!,
-    `Training day for ${trainingDay.group} updated`
+    `Training day for ${trainingDay.muscleGroups.join(', ')} updated`
   );
 
   return updatedTrainingDay;

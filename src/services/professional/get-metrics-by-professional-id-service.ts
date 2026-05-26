@@ -1,4 +1,4 @@
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 
 // Comprehensive metrics service that fetches all metrics data at once
 export async function getAllProfessionalMetrics(

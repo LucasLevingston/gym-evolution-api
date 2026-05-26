@@ -1,8 +1,8 @@
 import type { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import type { FastifyRequest } from 'fastify'
-import { type CreatePlanInput, getPredefinedFeatures } from 'schemas/plan-schema'
-import { createPlanService } from 'services/plan/create'
+import { type CreatePlanInput, getPredefinedFeatures } from '@/schemas/plan-schema'
+import { createPlanService } from '@/services/plan/create'
 
 export async function createPlanController(
   request: FastifyRequest<{ Body: { plan: CreatePlanInput } }>

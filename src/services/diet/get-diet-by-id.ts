@@ -7,7 +7,7 @@ export async function getDietById(id: string) {
     include: {
       Feature: {
         include: {
-          Plan: {
+          plan: {
             include: {
               purchases: {
                 where: {

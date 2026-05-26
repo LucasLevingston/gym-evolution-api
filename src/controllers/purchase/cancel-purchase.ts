@@ -1,9 +1,9 @@
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyRequest } from 'fastify';
-import { PurchaseParams } from 'schemas/purchase-schema';
-import { createNotificationService } from 'services/notification';
-import { cancelPurchaseService } from 'services/purchase/cancel-purchase';
-import { getPurchaseByIdService } from 'services/purchase/get-by-id';
+import { PurchaseParams } from '@/schemas/purchase-schema';
+import { createNotificationService } from '@/services/notification';
+import { cancelPurchaseService } from '@/services/purchase/cancel-purchase';
+import { getPurchaseByIdService } from '@/services/purchase/get-by-id';
 
 export async function cancelPurchaseController(
   request: FastifyRequest<{

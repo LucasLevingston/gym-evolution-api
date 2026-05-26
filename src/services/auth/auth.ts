@@ -1,4 +1,4 @@
-import { oauth2Client, SCOPES } from 'lib/oauth2Client';
+import { oauth2Client, SCOPES } from '@/lib/oauth2Client';
 import { env } from '@/env';
 
 export async function generateAuthUrl(userId: string): Promise<string> {

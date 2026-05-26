@@ -1,12 +1,13 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
+import { DayOfWeekEnum } from '@prisma/client';
 
 export async function createTrainingDayController(
   request: FastifyRequest<{
     Body: {
-      group: string;
-      dayOfWeek: string;
-      done: boolean;
+      muscleGroups: string[];
+      dayOfWeek: DayOfWeekEnum;
+      isCompleted?: boolean;
       comments?: string;
       trainingWeekId: string;
     };

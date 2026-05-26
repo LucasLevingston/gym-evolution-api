@@ -1,13 +1,13 @@
 import { prisma } from '../../lib/prisma'
 
 export async function getNutritionistStudents(nutritionistId: string) {
-  const relationships = await prisma.relationship.findMany({
+  const purchases = await prisma.purchase.findMany({
     where: {
-      nutritionistId,
+      professionalId: nutritionistId,
       status: 'ACTIVE',
     },
     include: {
-      student: {
+      buyer: {
         select: {
           id: true,
           name: true,
@@ -20,7 +20,7 @@ export async function getNutritionistStudents(nutritionistId: string) {
     },
   })
 
-  return relationships
-    .map(rel => rel.student)
-    .filter(student => student !== null)
+  return purchases
+    .map((p) => p.buyer)
+    .filter((student): student is NonNullable<typeof student> => student !== null)
 }

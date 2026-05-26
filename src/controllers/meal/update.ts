@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
+import { MealTypeEnum } from '@prisma/client'
 export async function updateMealController(
   request: FastifyRequest<{
     Params: { id: string }
@@ -9,8 +10,7 @@ export async function updateMealController(
       protein?: number
       carbohydrates?: number
       fat?: number
-      servingSize?: string
-      mealType?: string
+      mealType?: MealTypeEnum
       day?: number
       hour?: string
       isCompleted?: boolean

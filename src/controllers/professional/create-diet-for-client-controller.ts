@@ -2,7 +2,7 @@ import type { FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { createDietForClientService } from '@/services/professional/create-diet-for-client-service'
 import type { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 
 const createDietForClientBodySchema = z.object({
   weekNumber: z.number().int().positive(),

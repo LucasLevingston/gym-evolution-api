@@ -4,7 +4,7 @@ import { updateMealTotals } from './update-meal-totals'
 
 interface CreateMealItemParams {
   name: string
-  quantity: number
+  quantity: string
   calories?: number
   protein?: number
   carbohydrates?: number

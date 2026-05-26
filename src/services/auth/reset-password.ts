@@ -1,4 +1,4 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export async function resetPasswordService(id: string, newPassword: string) {
   return await prisma.user.update({

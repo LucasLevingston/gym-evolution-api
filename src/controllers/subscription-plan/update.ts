@@ -1,7 +1,7 @@
 import type { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import type { FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 
 const updateSubscriptionPlanSchema = z.object({

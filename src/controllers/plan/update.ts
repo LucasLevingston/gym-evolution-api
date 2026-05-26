@@ -1,9 +1,9 @@
 import { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import { FastifyRequest } from 'fastify'
-import { UpdatePlanInput } from 'schemas/plan-schema'
-import { getPlanByIdService } from 'services/plan/get-by-id'
-import { updatePlanService } from 'services/plan/update-plan-service'
+import { UpdatePlanInput } from '@/schemas/plan-schema'
+import { getPlanByIdService } from '@/services/plan/get-by-id'
+import { updatePlanService } from '@/services/plan/update-plan-service'
 
 export async function updatePlanController(
   request: FastifyRequest<{ Params: { id: string }; Body: { plan: UpdatePlanInput } }>

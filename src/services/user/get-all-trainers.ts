@@ -1,4 +1,4 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export async function getAllTrainers() {
   const nutritionists = await prisma.user.findMany({

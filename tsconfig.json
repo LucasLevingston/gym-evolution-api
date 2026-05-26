@@ -4,11 +4,8 @@
     "module": "CommonJS",
     "rootDir": "./",
     "paths": {
-      "*": [
-        "*"
-      ],
       "@/*": [
-        "*"
+        "./src/*"
       ]
     },
     "outDir": "./dist",

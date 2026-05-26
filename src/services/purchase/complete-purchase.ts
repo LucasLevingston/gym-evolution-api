@@ -48,66 +48,6 @@ export async function completePurchaseService(
         },
       });
 
-      // Create a professional-student relationship if it doesn't exist
-      const existingRelationship = await tx.relationship.findFirst({
-        where: {
-          OR: [
-            {
-              nutritionistId: purchase.professionalId,
-              studentId: purchase.buyerId,
-            },
-            {
-              trainerId: purchase.professionalId,
-              student2Id: purchase.buyerId,
-            },
-          ],
-        },
-      });
-
-      let relationshipId = existingRelationship?.id;
-
-      if (!existingRelationship) {
-        // Determine if the professional is a nutritionist or trainer based on role
-        const isProfessionalNutritionist = purchase.professional.role === 'NUTRITIONIST';
-
-        const newRelationship = await tx.relationship.create({
-          data: isProfessionalNutritionist
-            ? {
-                nutritionistId: purchase.professionalId,
-                studentId: purchase.buyerId,
-                status: 'ACTIVE',
-              }
-            : {
-                trainerId: purchase.professionalId,
-                student2Id: purchase.buyerId,
-                status: 'ACTIVE',
-              },
-        });
-        relationshipId = newRelationship.id;
-      } else if (existingRelationship.status !== 'ACTIVE') {
-        // Update the relationship if it exists but is not active
-        await tx.relationship.update({
-          where: {
-            id: existingRelationship.id,
-          },
-          data: {
-            status: 'ACTIVE',
-          },
-        });
-      }
-
-      // Update the purchase with the relationship ID if it doesn't have one
-      if (!updatedPurchase.relationshipId && relationshipId) {
-        await tx.purchase.update({
-          where: {
-            id: purchase.id,
-          },
-          data: {
-            relationshipId: relationshipId,
-          },
-        });
-      }
-
       // Create a notification for the professional
       await tx.notification.create({
         data: {

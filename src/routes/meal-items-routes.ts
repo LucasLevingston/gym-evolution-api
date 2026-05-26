@@ -3,11 +3,11 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 import { authenticate } from '../middlewares/authenticate';
 import { idParamSchema } from '../schemas/common-schemas';
-import { createMealItemController } from 'controllers/meal-items/create';
-import { getMealItemController } from 'controllers/meal-items/get';
-import { updateMealItemController } from 'controllers/meal-items/update';
-import { deleteMealItemController } from 'controllers/meal-items/delete';
-import { errorResponseSchema } from 'schemas/error-schema';
+import { createMealItemController } from '@/controllers/meal-items/create';
+import { getMealItemController } from '@/controllers/meal-items/get';
+import { updateMealItemController } from '@/controllers/meal-items/update';
+import { deleteMealItemController } from '@/controllers/meal-items/delete';
+import { errorResponseSchema } from '@/schemas/error-schema';
 
 export async function mealItemsRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();

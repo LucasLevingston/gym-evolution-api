@@ -1,11 +1,11 @@
 import { User } from '@prisma/client';
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getExerciseById } from 'services/exercise/get-exercise-by-id';
-import { markExerciseAsDone } from 'services/exercise/mark-exercise-as-done';
-import { getTrainingDayById } from 'services/training-day/get-training-day-by-id';
-import { getTrainingWeekById } from 'services/training-week/get-training-week-by-id';
-import { isTrainerAssignedToStudent } from 'services/training-week/is-trainer-assigned-to-student';
+import { getExerciseById } from '@/services/exercise/get-exercise-by-id';
+import { markExerciseAsDone } from '@/services/exercise/mark-exercise-as-done';
+import { getTrainingDayById } from '@/services/training-day/get-training-day-by-id';
+import { getTrainingWeekById } from '@/services/training-week/get-training-week-by-id';
+import { isTrainerAssignedToStudent } from '@/services/training-week/is-trainer-assigned-to-student';
 
 export const markExerciseAsDoneController = async (
   request: FastifyRequest<{

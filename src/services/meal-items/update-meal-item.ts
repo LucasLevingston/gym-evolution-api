@@ -5,7 +5,7 @@ import { ClientError } from '../../errors/client-error'
 
 interface UpdateMealItemParams {
   name?: string
-  quantity?: number
+  quantity?: string
   calories?: number
   protein?: number
   carbohydrates?: number
