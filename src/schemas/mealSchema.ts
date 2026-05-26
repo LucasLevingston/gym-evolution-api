@@ -1,6 +1,15 @@
 import { z } from 'zod';
 import { mealItemsSchema } from './mealItemsSchema';
 
+export const mealTypeEnum = z.enum([
+  'BREAKFAST',
+  'MORNING_SNACK',
+  'LUNCH',
+  'AFTERNOON_SNACK',
+  'DINNER',
+  'NIGHT_SNACK',
+])
+
 export const mealSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().optional().nullable(),
@@ -9,7 +18,7 @@ export const mealSchema = z.object({
   carbohydrates: z.number().positive().optional().nullable().nullable(),
   fat: z.number().positive().optional().nullable(),
   servingSize: z.string().optional().nullable(),
-  mealType: z.string().optional().nullable(),
+  mealType: mealTypeEnum.optional().nullable(),
   day: z.number().int().positive().optional().nullable(),
   hour: z.string().optional().nullable(),
   isCompleted: z.boolean().optional().nullable(),

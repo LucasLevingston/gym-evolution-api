@@ -16,7 +16,7 @@ export const updateMeetingSchema = z.object({
   description: z.string().optional(),
   startTime: z.coerce.date().optional(),
   endTime: z.coerce.date().optional(),
-  status: z.enum(['SCHEDULED', 'COMPLETED', 'CANCELLED']).optional(),
+  status: z.enum(['SCHEDULED', 'COMPLETED', 'CANCELLED', 'RESCHEDULED']).optional(),
 });
 
 export const meetingParamsSchema = z.object({
@@ -29,7 +29,7 @@ export const userIdParamsSchema = z.object({
 
 export const meetingQuerySchema = z.object({
   role: z.enum(['professional', 'student']),
-  status: z.enum(['SCHEDULED', 'COMPLETED', 'CANCELLED']).optional(),
+  status: z.enum(['SCHEDULED', 'COMPLETED', 'CANCELLED', 'RESCHEDULED']).optional(),
 });
 
 export type CreateMeetingInput = z.infer<typeof createMeetingSchema>;

@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import { trainingWeekSchema } from './newTrainingSchema';
-import { weightSchema } from './weightSchema';
-import { dietSchema } from './dietSchema';
-import { historySchema } from './historySchema';
+import { z } from 'zod'
+import { dietSchema } from './dietSchema'
+import { historySchema } from './historySchema'
+import { trainingWeekSchema } from './newTrainingSchema'
+import { weightSchema } from './weightSchema'
 
 const professionalSettingsSchema = z.object({
   id: z.string().uuid().optional(),
@@ -17,7 +17,7 @@ const professionalSettingsSchema = z.object({
   timeZone: z.string(),
   createdAt: z.string().or(z.date()).optional(),
   updatedAt: z.string().or(z.date()).optional(),
-});
+})
 
 const googleConnectionSchema = z.object({
   id: z.string().uuid().optional(),
@@ -29,7 +29,7 @@ const googleConnectionSchema = z.object({
   tokenType: z.string().optional(),
   createdAt: z.string().or(z.date()).optional(),
   updatedAt: z.string().or(z.date()).optional(),
-});
+})
 
 export const userSchema = z.object({
   id: z.string().uuid(),
@@ -37,7 +37,7 @@ export const userSchema = z.object({
   password: z.string().optional(),
   name: z.string().optional(),
   role: z.string(),
-  sex: z.string().optional(),
+  sex: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
   street: z.string().optional(),
   number: z.string().optional(),
   zipCode: z.string().optional(),
@@ -74,9 +74,14 @@ export const userSchema = z.object({
   token: z.string().optional(),
   createdAt: z.string().or(z.date()).optional(),
   updatedAt: z.string().or(z.date()).optional(),
-});
+})
 
-export const userRoleSchema = z.enum(['STUDENT', 'NUTRITIONIST', 'TRAINER', 'ADMIN']);
+export const userRoleSchema = z.enum([
+  'STUDENT',
+  'NUTRITIONIST',
+  'TRAINER',
+  'ADMIN',
+])
 
 export const userResponseSchema = z.object({
   id: z.string().uuid(),
@@ -84,4 +89,4 @@ export const userResponseSchema = z.object({
   email: z.string().email(),
   role: z.string(),
   createdAt: z.date(),
-});
+})

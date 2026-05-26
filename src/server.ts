@@ -15,6 +15,7 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyMultipart from '@fastify/multipart'
 import fastifyStatic from '@fastify/static'
 import { fatsecretRoutes } from 'routes/fatsecret-routes'
+import { subscriptionPlanRoutes } from 'routes/subscription-plan-routes'
 import { googleRoutes } from 'routes/google-routes'
 import { meetingRoutes } from 'routes/meeting-routes'
 import { notificationRoutes } from 'routes/notification-routes'
@@ -100,6 +101,7 @@ server.register(purchaseRoutes, { prefix: '/purchases' })
 server.register(meetingRoutes, { prefix: '/meetings' })
 server.register(googleRoutes, { prefix: '/google' })
 server.register(fatsecretRoutes, { prefix: '/fatsecret' })
+server.register(subscriptionPlanRoutes, { prefix: '/subscription-plans' })
 
 server.get('/help', () => {
   return {
