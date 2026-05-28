@@ -1,7 +1,7 @@
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { deleteWeightService } from 'services/weight/delete';
-import { getWeightHistory } from 'services/weight/get-weight-history';
+import { deleteWeightService } from '@/services/weight/delete';
+import { getWeightHistory } from '@/services/weight/get-weight-history';
 
 export async function deleteWeightController(
   request: FastifyRequest<{

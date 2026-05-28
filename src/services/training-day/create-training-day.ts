@@ -1,35 +1,34 @@
+import { DayOfWeekEnum } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { createHistoryEntry } from '../history/create-history-entry'
 
 interface CreateTrainingDayParams {
-  group: string
-  dayOfWeek: string
+  muscleGroups: string[]
+  dayOfWeek: DayOfWeekEnum
   comments?: string
   trainingWeekId: string
   studentId: string
 }
 
 export async function createTrainingDay({
-  group,
+  muscleGroups,
   dayOfWeek,
   comments,
   trainingWeekId,
   studentId,
 }: CreateTrainingDayParams) {
-  // Create the training day
   const trainingDay = await prisma.trainingDay.create({
     data: {
-      group,
+      muscleGroups,
       dayOfWeek,
       comments,
       trainingWeekId,
     },
   })
 
-  // Create history entry
   await createHistoryEntry(
     studentId,
-    `Training day for ${group} on ${dayOfWeek} created`
+    `Training day for ${muscleGroups.join(', ')} on ${dayOfWeek} created`
   )
 
   return trainingDay

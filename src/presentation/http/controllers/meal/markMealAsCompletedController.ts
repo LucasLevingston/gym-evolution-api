@@ -1,0 +1,41 @@
+import { User } from '@prisma/client';
+import { ClientError } from '@/domain/shared/errors/client-error';
+import { FastifyRequest } from 'fastify';
+import { getDietById } from '@/application/diet/get-diet-by-id';
+import { createHistoryEntry } from '@/application/history/create-history-entry';
+import { getMealById } from '@/application/diet/get-meal-by-id';
+import { markMealAsCompleted } from '@/application/diet/mark-meal-as-completed';
+
+export const markMealAsCompletedController = async (
+  request: FastifyRequest<{
+    Params: {
+      id: string;
+    };
+  }>
+) => {
+  const { id } = request.params;
+  const { id: userId, role } = request.user as User;
+  const meal = await getMealById(id);
+  if (!meal) {
+    throw new ClientError('Meal not found.');
+  }
+
+  const diet = await getDietById(meal.dietId!);
+
+  if (role === 'STUDENT' && diet.userId !== userId) {
+    throw new ClientError('Forbidden');
+  }
+
+  const updatedMeal = await markMealAsCompleted(id);
+
+  if (!updatedMeal || !updatedMeal.Diet) {
+    throw new ClientError('Error on mark as completed (Service)');
+  }
+
+  await createHistoryEntry(
+    updatedMeal.Diet.userId!,
+    `Meal ${meal.name} marked as completed`
+  );
+
+  return updatedMeal;
+};

@@ -1,24 +1,18 @@
 import { prisma } from '../../lib/prisma'
-import { isTrainerAssignedToStudent } from './is-trainer-assigned-to-student'
 
 export async function isProfessionalAssignedToStudent(
   professionalId: string,
   studentId: string,
-  role: string
+  _role: string
 ) {
-  if (role === 'TRAINER') {
-    return isTrainerAssignedToStudent(professionalId, studentId)
-  } else if (role === 'NUTRITIONIST') {
-    const relationship = await prisma.relationship.findFirst({
-      where: {
-        nutritionistId: professionalId,
-        studentId,
-        status: 'ACTIVE',
-      },
-    })
+  // Check if there's an active purchase from the student to this professional
+  const purchase = await prisma.purchase.findFirst({
+    where: {
+      professionalId,
+      buyerId: studentId,
+      status: 'ACTIVE',
+    },
+  })
 
-    return !!relationship
-  }
-
-  return false
+  return !!purchase
 }

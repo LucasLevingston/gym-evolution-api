@@ -40,7 +40,7 @@ export async function markTrainingDayAsDone(id: string) {
 
   await createHistoryEntry(
     trainingDay.trainingWeek.userId,
-    `Training day for ${trainingDay.group} marked as isCompleted`
+    `Training day for ${trainingDay.muscleGroups.join(', ')} marked as isCompleted`
   );
 
   return updatedTrainingDay;

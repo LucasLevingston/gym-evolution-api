@@ -14,12 +14,53 @@ enum RoleEnum {
   ADMIN
 }
 
+enum SexEnum {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum DayOfWeekEnum {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum MealTypeEnum {
+  BREAKFAST
+  MORNING_SNACK
+  LUNCH
+  AFTERNOON_SNACK
+  DINNER
+  NIGHT_SNACK
+}
+
+enum MeetingStatusEnum {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum NotificationTypeEnum {
+  TRAINING
+  DIET
+  MEETING
+  PURCHASE
+  SYSTEM
+  FEEDBACK
+}
+
 model User {
   id                   String    @id @default(uuid())
   email                String    @unique
   password             String
   name                 String?
-  sex                  String?
+  sex                  SexEnum?
   street               String?
   number               String?
   zipCode              String?
@@ -277,7 +318,7 @@ model TrainingWeek {
 model TrainingDay {
   id           String   @id @default(uuid())
   muscleGroups String[]
-  dayOfWeek    String
+  dayOfWeek    DayOfWeekEnum
   isCompleted  Boolean  @default(false)
   comments     String?
 
@@ -349,7 +390,7 @@ model Meal {
   protein       Float?
   carbohydrates Float?
   fat           Float?
-  mealType      String?
+  mealType      MealTypeEnum?
   day           Int?
   hour          String?
   isCompleted   Boolean?    @default(false)
@@ -455,7 +496,7 @@ model Meeting {
   meetingCode String?
   startTime   DateTime
   endTime     DateTime
-  status      String   @default("SCHEDULED")
+  status      MeetingStatusEnum   @default(SCHEDULED)
 
   professional   User   @relation("ProfessionalToMeetings", fields: [professionalId], references: [id])
   professionalId String

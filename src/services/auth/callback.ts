@@ -1,13 +1,13 @@
 import { prisma } from '@/lib/prisma'
 import type { Credentials } from 'google-auth-library'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import { google } from 'googleapis'
-import { oauth2Client } from 'lib/oauth2Client'
+import { oauth2Client } from '@/lib/oauth2Client'
 import { generateToken, hashPassword } from '@/utils/jwt'
 import { randomUUID } from 'crypto'
-import { getUserByIdService } from 'services/user/get-user-by-id'
-import { createHistoryEntry } from 'services/history/create-history-entry'
-import { getUserByEmailService } from 'services/user/get-by-email'
+import { getUserByIdService } from '@/services/user/get-user-by-id'
+import { createHistoryEntry } from '@/services/history/create-history-entry'
+import { getUserByEmailService } from '@/services/user/get-by-email'
 
 interface CallbackGoogleServiceParams {
   state: string
@@ -137,7 +137,7 @@ export async function callbackGoogleService({
     },
   })
 
-  createHistoryEntry(user.id, 'Connected Google account')
+  createHistoryEntry(userId, 'Connected Google account')
 
   return { googleConnection }
 }

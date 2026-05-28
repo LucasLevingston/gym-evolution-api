@@ -1,5 +1,5 @@
 import { FastifyRequest } from 'fastify';
-import { getPlansByProfessionalIdService } from 'services/plan/get-plans-by-professional-id';
+import { getPlansByProfessionalIdService } from '@/services/plan/get-plans-by-professional-id';
 
 export async function getPlansByProfessionalIdController(
   request: FastifyRequest<{ Params: { professionalId: string } }>

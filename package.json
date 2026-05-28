@@ -2,17 +2,21 @@
   "name": "gym-evolution-api",
   "description": "",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "main": "server.ts",
   "engines": {
-    "node": "22.12.0"
+    "node": "22"
   },
   "scripts": {
-    "test": "npx vitest",
-    "dev": "tsx watch --env-file .env src/server.ts",
-    "start": "tsx watch src/server.ts",
-    "build": "tsc",
-    "seed": "ts-node src/seed.ts"
+    "dev": "tsx --env-file .env --watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "test": "dotenv -e .env.test -- vitest run --reporter=verbose",
+    "test:coverage": "dotenv -e .env.test -- vitest run --coverage",
+    "test:watch": "dotenv -e .env.test -- vitest watch",
+    "test:ui": "dotenv -e .env.test -- vitest --ui",
+    "seed": "prisma generate && tsx --env-file .env prisma/seed.ts",
+    "seed:local": "prisma generate && tsx --env-file .env.seed prisma/seed.ts",
+    "seed:test": "tsx --env-file .env.test prisma/seed.ts",
+    "setup:hooks": "bash scripts/setup-hooks.sh"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.779.0",

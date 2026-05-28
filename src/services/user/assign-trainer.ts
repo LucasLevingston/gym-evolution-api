@@ -27,20 +27,11 @@ export async function assignTrainer(trainerId: string, studentId: string) {
     throw new ClientError('Student not found')
   }
 
-  // Create relationship
-  const relationship = await prisma.relationship.create({
-    data: {
-      trainerId,
-      student2Id: studentId,
-      status: 'ACTIVE',
-    },
-  })
-
   // Create history entry
   await createHistoryEntry(
     studentId,
     `Trainer ${trainer.name} assigned to student ${student.name}`
   )
 
-  return relationship
+  return { trainerId, studentId }
 }

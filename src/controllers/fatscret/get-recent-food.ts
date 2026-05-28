@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
-import { getValidAccessToken } from 'utils/fatsecret-auth'
+import { getValidAccessToken } from '@/utils/fatsecret-auth'
 import { z } from 'zod'
 
 const recentFoodsQuerySchema = z.object({

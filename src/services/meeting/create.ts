@@ -1,7 +1,7 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { google } from 'googleapis';
-import { ClientError } from 'errors/client-error';
-import { oauth2Client } from 'lib/oauth2Client';
+import { ClientError } from '@/errors/client-error';
+import { oauth2Client } from '@/lib/oauth2Client';
 
 interface CreateMeetingParams {
   title: string;
@@ -46,7 +46,7 @@ export async function createMeetingService({
     throw new ClientError('Purchase not found');
   }
 
-  if (purchase.status !== 'SCHEDULEMEETING') {
+  if (purchase.status !== 'ACTIVE') {
     throw new ClientError('Invalid purchase status');
   }
 
@@ -148,7 +148,7 @@ export async function createMeetingService({
   // Update purchase status
   await prisma.purchase.update({
     where: { id: purchaseId },
-    data: { status: 'SCHEDULED' },
+    data: { status: 'ACTIVE' },
   });
 
   // Create notification for professional

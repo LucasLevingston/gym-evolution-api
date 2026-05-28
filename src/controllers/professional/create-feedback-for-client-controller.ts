@@ -1,5 +1,5 @@
 import type { FastifyRequest } from 'fastify'
-import { createFeedbackForClientService } from 'services/professional/create-feedback-for-client'
+import { createFeedbackForClientService } from '@/services/professional/create-feedback-for-client'
 
 export async function createFeedbackForClientController(
   request: FastifyRequest<{ Body: { featureId: string; feedback: string } }>

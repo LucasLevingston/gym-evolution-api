@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 export async function updateExerciseController(
   request: FastifyRequest<{
     Params: { id: string }

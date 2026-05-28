@@ -1,10 +1,10 @@
 import { User } from '@prisma/client';
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyRequest } from 'fastify';
-import { getDietById } from 'services/diet/get-diet-by-id';
-import { createHistoryEntry } from 'services/history/create-history-entry';
-import { getMealById } from 'services/meal/get-meal-by-id';
-import { markMealAsCompleted } from 'services/meal/mark-meal-as-completed';
+import { getDietById } from '@/services/diet/get-diet-by-id';
+import { createHistoryEntry } from '@/services/history/create-history-entry';
+import { getMealById } from '@/services/meal/get-meal-by-id';
+import { markMealAsCompleted } from '@/services/meal/mark-meal-as-completed';
 
 export const markMealAsCompletedController = async (
   request: FastifyRequest<{

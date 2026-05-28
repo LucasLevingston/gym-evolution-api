@@ -1,7 +1,7 @@
-import { prisma } from 'lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { google } from 'googleapis';
-import { oauth2Client } from 'lib/oauth2Client';
-import { ClientError } from 'errors/client-error';
+import { oauth2Client } from '@/lib/oauth2Client';
+import { ClientError } from '@/errors/client-error';
 
 export async function getUserCalendarService(userId: string) {
   const googleConnection = await prisma.googleConnection.findUnique({

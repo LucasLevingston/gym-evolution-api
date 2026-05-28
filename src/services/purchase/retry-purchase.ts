@@ -21,7 +21,7 @@ export async function retryPaymentService(
       throw new Error('Purchase not found')
     }
 
-    if (purchase.status !== 'PENDING') {
+    if (purchase.status !== 'WAITINGPAYMENT') {
       throw new Error('Only pending purchases can be retried')
     }
 

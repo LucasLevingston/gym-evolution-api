@@ -1,8 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { createMeetingService } from 'services/meeting/create';
+import { createMeetingService } from '@/services/meeting/create';
 import { User } from '@prisma/client';
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 
 const createMeetingBodySchema = z.object({
   title: z.string(),

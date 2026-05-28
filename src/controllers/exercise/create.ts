@@ -1,13 +1,14 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 export async function createExerciseController(
   request: FastifyRequest<{
     Body: {
       name: string
+      group: string
       variation?: string
       repetitions: number
       sets: number
-      done: boolean
+      isCompleted?: boolean
       trainingDayId: string
     }
   }>,

@@ -1,6 +1,7 @@
 import { prisma } from '../../lib/prisma'
 import { createHistoryEntry } from '../history/create-history-entry'
 import { ClientError } from '../../errors/client-error'
+import { MealTypeEnum } from '@prisma/client'
 
 interface UpdateMealParams {
   name?: string
@@ -8,8 +9,7 @@ interface UpdateMealParams {
   protein?: number
   carbohydrates?: number
   fat?: number
-  servingSize?: string
-  mealType?: string
+  mealType?: MealTypeEnum
   day?: number
   hour?: string
 }

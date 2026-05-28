@@ -1,23 +1,23 @@
 import type { FastifyRequest } from 'fastify'
 import { createTrainingWeek } from '@/services/training-week/create-training-week'
 import { isTrainerAssignedToStudent } from '@/services/training-week/is-trainer-assigned-to-student'
-import { ClientError } from 'errors/client-error'
-import { User } from '@prisma/client'
+import { ClientError } from '@/errors/client-error'
+import { DayOfWeekEnum, User } from '@prisma/client'
 
 interface Exercise {
   name: string
   variation?: string
   repetitions: number
   sets: number
-  done?: boolean
+  isCompleted?: boolean
   group: string
 }
 
 interface TrainingDay {
-  muscleGroup: string[]
-  dayOfWeek: string
+  muscleGroups: string[]
+  dayOfWeek: DayOfWeekEnum
   comments?: string
-  done?: boolean
+  isCompleted?: boolean
   exercises?: Exercise[]
 }
 

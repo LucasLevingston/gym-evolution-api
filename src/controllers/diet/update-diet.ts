@@ -3,7 +3,7 @@ import { getDietById } from '../../services/diet/get-diet-by-id'
 import { updateDiet } from '../../services/diet/update-diet'
 import { isProfessionalAssignedToStudent } from '../../services/training-week/is-professional-assigned-to-student'
 import type { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 
 interface Params {
   id: string

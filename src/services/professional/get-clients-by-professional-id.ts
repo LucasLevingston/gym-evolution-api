@@ -1,5 +1,5 @@
-import { prisma } from 'lib/prisma'
-import { Client } from 'types/client-type'
+import { prisma } from '@/lib/prisma'
+import { Client } from '@/types/client-type'
 
 export async function getClientsByProfessionalIdService(
   professionalId: string
@@ -144,6 +144,7 @@ export async function getClientsByProfessionalIdService(
               taskTitle = 'Reunião de Acompanhamento'
               taskDescription =
                 'Agendar ou realizar reunião de acompanhamento com o cliente'
+              taskStatus = 'PENDING'
 
               // Verifica se há uma reunião para este retorno
               if (feature.returnMeetingId) {

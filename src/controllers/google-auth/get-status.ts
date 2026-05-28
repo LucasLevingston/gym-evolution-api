@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import type { FastifyRequest, FastifyReply } from 'fastify';
-import { getConnectionStatus } from 'services/google-auth/get-status';
+import { getConnectionStatus } from '@/services/google-auth/get-status';
 
 export async function getStatus(request: FastifyRequest, reply: FastifyReply) {
   try {

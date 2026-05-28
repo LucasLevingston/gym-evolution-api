@@ -3,6 +3,7 @@ import { createHistoryEntry } from '../history/create-history-entry'
 
 interface CreateExerciseParams {
   name: string
+  group: string
   variation?: string
   repetitions: number
   sets: number
@@ -12,6 +13,7 @@ interface CreateExerciseParams {
 
 export async function createExercise({
   name,
+  group,
   variation,
   repetitions,
   sets,
@@ -22,6 +24,7 @@ export async function createExercise({
   const exercise = await prisma.exercise.create({
     data: {
       name,
+      group,
       variation,
       repetitions,
       sets,

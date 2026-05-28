@@ -1,6 +1,6 @@
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 import { FastifyRequest } from 'fastify'
-import { getClientsByProfessionalIdService } from 'services/professional/get-clients-by-professional-id'
+import { getClientsByProfessionalIdService } from '@/services/professional/get-clients-by-professional-id'
 
 export async function getClientsByProfessionalIdController(
   request: FastifyRequest<{ Params: { professionalId: string } }>

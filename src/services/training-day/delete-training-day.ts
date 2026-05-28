@@ -14,15 +14,13 @@ export async function deleteTrainingDay(id: string) {
     throw new ClientError('Training day not found');
   }
 
-  // Delete the training day
   await prisma.trainingDay.delete({
     where: { id },
   });
 
-  // Create history entry
   await createHistoryEntry(
     trainingDay.trainingWeek.userId,
-    `Training day for ${trainingDay.group} deleted`
+    `Training day for ${trainingDay.muscleGroups.join(', ')} deleted`
   );
 
   return true;

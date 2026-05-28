@@ -1,5 +1,5 @@
 import type { FastifyRequest } from 'fastify'
-import { verifyToken } from 'utils/jwt'
+import { verifyToken } from '@/utils/jwt'
 
 export async function validateTokenController(
   request: FastifyRequest<{ Body: { token: string } }>

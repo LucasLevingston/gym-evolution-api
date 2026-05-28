@@ -1,5 +1,5 @@
-import { prisma } from 'lib/prisma'
-import type { CreatePlanInput } from 'schemas/plan-schema'
+import { prisma } from '@/lib/prisma'
+import type { CreatePlanInput } from '@/schemas/plan-schema'
 
 export async function createPlanService(data: CreatePlanInput) {
   const workflowMetadata = {

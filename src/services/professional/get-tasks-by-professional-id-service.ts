@@ -1,5 +1,5 @@
-import { prisma } from 'lib/prisma'
-import { Task } from 'types/client-type'
+import { prisma } from '@/lib/prisma'
+import { Task } from '@/types/client-type'
 
 export async function getTasksByProfessionalIdService(professionalId: string) {
   const activePurchases = await prisma.purchase.findMany({
@@ -88,6 +88,7 @@ export async function getTasksByProfessionalIdService(professionalId: string) {
         taskType = 'RETURN'
         taskTitle = 'Consulta de retorno'
         taskDescription = 'Agendar retorno com o cliente'
+        taskStatus = 'PENDING'
 
         // Check if there's a meeting for this return
         if (feature.returnMeetingId) {

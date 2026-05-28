@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify'
 import * as professionalService from '../../services/professional'
-import { createNotificationService } from 'services/notification'
+import { createNotificationService } from '@/services/notification'
 
 export async function approveProfessionalController(
   request: FastifyRequest<{ Params: { id: string } }>

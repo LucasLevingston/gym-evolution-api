@@ -11,8 +11,8 @@ import { assignTrainerController } from '../controllers/user/assign-trainer';
 import { getNutritionistStudentsController } from '../controllers/user/get-nutritionist-students';
 import { getTrainerStudentsController } from '../controllers/user/get-trainer-students';
 import { idParamSchema } from '../schemas/common-schemas';
-import { userResponseSchema, userSchema } from 'schemas/userSchema';
-import { errorResponseSchema } from 'schemas/error-schema';
+import { userResponseSchema, userSchema } from '@/schemas/userSchema';
+import { errorResponseSchema } from '@/schemas/error-schema';
 
 export async function userRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();

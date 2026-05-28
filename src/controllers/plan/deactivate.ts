@@ -1,8 +1,8 @@
 import { User } from '@prisma/client';
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyRequest } from 'fastify';
-import { deactivatePlanService } from 'services/plan/deactivate-plan';
-import { getPlanByIdService } from 'services/plan/get-by-id';
+import { deactivatePlanService } from '@/services/plan/deactivate-plan';
+import { getPlanByIdService } from '@/services/plan/get-by-id';
 
 export async function deactivatePlanController(
   request: FastifyRequest<{ Params: { id: string } }>

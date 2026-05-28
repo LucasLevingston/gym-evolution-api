@@ -1,4 +1,5 @@
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
+import { MealTypeEnum } from '@prisma/client'
 
 interface CreateDietForClientInput {
   weekNumber: number
@@ -15,7 +16,7 @@ interface CreateDietForClientInput {
 
 interface MealInput {
   name: string
-  mealType: string
+  mealType: MealTypeEnum
   day: number
   hour: string
   calories?: number
@@ -27,7 +28,7 @@ interface MealInput {
 
 interface MealItemInput {
   name: string
-  quantity: number
+  quantity: string
   quantityType: string
   calories?: number
   protein?: number
@@ -42,7 +43,7 @@ export async function createDietForClientService(data: CreateDietForClientInput)
     const feature = await prisma.feature.findFirst({
       where: {
         id: data.featureId,
-        Plan: {
+        plan: {
           purchases: {
             some: {
               id: data.purchaseId,
@@ -51,7 +52,7 @@ export async function createDietForClientService(data: CreateDietForClientInput)
             },
           },
         },
-        isDiet: true,
+        type: 'DIET',
       },
     })
 

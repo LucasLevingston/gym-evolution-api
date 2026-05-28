@@ -1,6 +1,6 @@
 import { ProfessionalSettings } from '@prisma/client'
 import { FastifyRequest } from 'fastify'
-import { updateProfessionalSettingsService } from 'services/professional/update-professional-settings-service'
+import { updateProfessionalSettingsService } from '@/services/professional/update-professional-settings-service'
 
 export const updateProfessionalSettingsController = async (
   request: FastifyRequest<{ Body: { professionalSettings: ProfessionalSettings } }>

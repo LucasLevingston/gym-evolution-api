@@ -1,9 +1,9 @@
-import { getAuthUrl } from 'controllers/auth/auth';
-import { googleCallbackController } from 'controllers/auth/callback';
-import { getStatus } from 'controllers/google-auth/get-status';
+import { getAuthUrl } from '@/controllers/auth/auth';
+import { googleCallbackController } from '@/controllers/auth/callback';
+import { getStatus } from '@/controllers/google-auth/get-status';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { authenticate } from 'middlewares/authenticate';
+import { authenticate } from '@/middlewares/authenticate';
 
 export async function googleRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();

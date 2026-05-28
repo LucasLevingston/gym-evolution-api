@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { getProfessionalAvailabilityService } from 'services/meeting/get-professional-availability';
+import { getProfessionalAvailabilityService } from '@/services/meeting/get-professional-availability';
 
 const paramsSchema = z.object({
   professionalId: z.string().uuid(),

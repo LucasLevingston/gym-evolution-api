@@ -30,20 +30,11 @@ export async function assignNutritionist(
     throw new ClientError('Student not found')
   }
 
-  // Create relationship
-  const relationship = await prisma.relationship.create({
-    data: {
-      nutritionistId,
-      studentId,
-      status: 'ACTIVE',
-    },
-  })
-
   // Create history entry
   await createHistoryEntry(
     studentId,
     `Nutritionist ${nutritionist.name} assigned to student ${student.name}`
   )
 
-  return relationship
+  return { nutritionistId, studentId }
 }

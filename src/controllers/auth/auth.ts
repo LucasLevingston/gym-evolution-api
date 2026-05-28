@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { generateAuthUrl, generateLoginAuthUrl } from 'services/auth/auth';
+import { generateAuthUrl, generateLoginAuthUrl } from '@/services/auth/auth';
 
 export async function getAuthUrl(request: FastifyRequest, reply: FastifyReply) {
   try {

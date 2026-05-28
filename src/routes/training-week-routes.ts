@@ -3,12 +3,12 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { authenticate } from '../middlewares/authenticate'
 import { idParamSchema } from '../schemas/common-schemas'
-import { createTrainingWeekController } from 'controllers/training-week/create-training-week'
-import { getAllTrainingWeeksController } from 'controllers/training-week/get-all-training-weeks'
-import { getTrainingWeekByIdController } from 'controllers/training-week/get-training-week-by-id'
-import { updateTrainingWeekController } from 'controllers/training-week/update-training-week'
-import { deleteTrainingWeekController } from 'controllers/training-week/delete-training-week'
-import { errorResponseSchema } from 'schemas/error-schema'
+import { createTrainingWeekController } from '@/controllers/training-week/create-training-week'
+import { getAllTrainingWeeksController } from '@/controllers/training-week/get-all-training-weeks'
+import { getTrainingWeekByIdController } from '@/controllers/training-week/get-training-week-by-id'
+import { updateTrainingWeekController } from '@/controllers/training-week/update-training-week'
+import { deleteTrainingWeekController } from '@/controllers/training-week/delete-training-week'
+import { errorResponseSchema } from '@/schemas/error-schema'
 
 export async function trainingWeekRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>()

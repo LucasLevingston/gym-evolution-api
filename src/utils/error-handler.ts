@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import type { FastifyInstance } from 'fastify';
 import { ResponseSerializationError } from 'fastify-type-provider-zod';
 import { ZodError } from 'zod';

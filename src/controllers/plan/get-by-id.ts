@@ -1,6 +1,6 @@
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { getPlanByIdService } from 'services/plan/get-by-id';
+import { getPlanByIdService } from '@/services/plan/get-by-id';
 
 export async function getPlanByIdController(
   request: FastifyRequest<{ Params: { id: string } }>,

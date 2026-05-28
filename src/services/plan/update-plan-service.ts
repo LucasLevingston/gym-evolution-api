@@ -1,5 +1,5 @@
-import { prisma } from 'lib/prisma'
-import type { UpdatePlanInput } from 'schemas/plan-schema'
+import { prisma } from '@/lib/prisma'
+import type { UpdatePlanInput } from '@/schemas/plan-schema'
 
 export async function updatePlanService(id: string, data: UpdatePlanInput): Promise<any> {
   const { features, professionalId, ...planData } = data

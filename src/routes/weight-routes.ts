@@ -3,9 +3,9 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 import { authenticate } from '../middlewares/authenticate';
 import { errorResponseSchema } from '../schemas/error-schema';
-import { addWeightRecordController } from 'controllers/weight/addWeightRecord';
-import { getWeightController } from 'controllers/weight/get';
-import { deleteWeightController } from 'controllers/weight/delete';
+import { addWeightRecordController } from '@/controllers/weight/addWeightRecord';
+import { getWeightController } from '@/controllers/weight/get';
+import { deleteWeightController } from '@/controllers/weight/delete';
 
 export async function weightRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();

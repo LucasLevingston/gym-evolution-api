@@ -1,7 +1,7 @@
 import type { FastifyRequest } from 'fastify'
 import { createTrainingForClientService } from '@/services/professional/create-training-for-client-service'
 import { User } from '@prisma/client'
-import { ClientError } from 'errors/client-error'
+import { ClientError } from '@/errors/client-error'
 
 export async function createTrainingForClientController(
   request: FastifyRequest<{ Body: { trainingWeek: any } }>

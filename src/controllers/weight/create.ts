@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { addWeightRecord } from 'services/weight/add-weight-record';
+import { addWeightRecord } from '@/services/weight/add-weight-record';
 
 export async function createWeightController(
   request: FastifyRequest<{

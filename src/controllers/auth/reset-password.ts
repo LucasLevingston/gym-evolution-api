@@ -1,9 +1,9 @@
-import { ClientError } from 'errors/client-error';
+import { ClientError } from '@/errors/client-error';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { resetPasswordService } from 'services/auth/reset-password';
-import { createHistoryEntry } from 'services/history/create-history-entry';
-import { getUserByToken } from 'services/user/get-user-by-token';
-import { hashPassword } from 'utils/jwt';
+import { resetPasswordService } from '@/services/auth/reset-password';
+import { createHistoryEntry } from '@/services/history/create-history-entry';
+import { getUserByToken } from '@/services/user/get-user-by-token';
+import { hashPassword } from '@/utils/jwt';
 
 export async function resetPasswordController(
   request: FastifyRequest<{ Body: { password: string; token: string } }>,

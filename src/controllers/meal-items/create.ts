@@ -1,10 +1,10 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
 export async function createMealItemController(
   request: FastifyRequest<{
     Body: {
       name: string
-      quantity: number
+      quantity: string
       calories?: number
       protein?: number
       carbohydrates?: number

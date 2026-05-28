@@ -1,4 +1,5 @@
-import { prisma } from 'lib/prisma'
+import { prisma } from '@/lib/prisma'
+import { DayOfWeekEnum } from '@prisma/client'
 
 interface CreateTrainingForClientInput {
   weekNumber: number
@@ -13,7 +14,7 @@ interface CreateTrainingForClientInput {
 }
 interface TrainingDayInput {
   muscleGroups: string[]
-  dayOfWeek: string
+  dayOfWeek: DayOfWeekEnum
   comments?: string
   exercises: ExerciseInput[]
 }

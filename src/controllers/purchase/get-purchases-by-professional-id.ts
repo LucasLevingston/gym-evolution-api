@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify'
-import { PurchaseQuery } from 'schemas/purchase-schema'
-import { getPurchasesByProfessionalIdService } from 'services/purchase/get-purchases-by-professional-id'
+import { PurchaseQuery } from '@/schemas/purchase-schema'
+import { getPurchasesByProfessionalIdService } from '@/services/purchase/get-purchases-by-professional-id'
 
 export async function getPurchasesByProfessionalIdController(
   request: FastifyRequest<{
