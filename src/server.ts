@@ -102,6 +102,10 @@ server.register(googleRoutes, { prefix: "/google" });
 server.register(fatsecretRoutes, { prefix: "/fatsecret" });
 server.register(subscriptionPlanRoutes, { prefix: "/subscription-plans" });
 
+server.get("/health", { schema: { hide: true } }, () => {
+  return { status: "ok", uptime: process.uptime() };
+});
+
 server.get("/help", () => {
   return {
     message: "Welcome to GymEvolution!",
